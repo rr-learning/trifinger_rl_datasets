@@ -572,6 +572,7 @@ class SimTriFingerCubeEnv(gym.Env):
             "confidence": np.array([object_observation.confidence], dtype=np.float32),
         }
         if self.image_obs:
+            time_0 = time()
             if len(camera_observation.cameras[0].image.shape) == 2:
                 # images from real platform have to be debayered
                 images = np.array([cv2.cvtColor(cam.image, cv2.COLOR_BAYER_BG2RGB) for cam in camera_observation.cameras])
@@ -582,6 +583,7 @@ class SimTriFingerCubeEnv(gym.Env):
             # convert to channel first
             images = np.transpose(images, (0, 3, 1, 2))
             camera_obs_processed["images"] = images
+            print("time to process images: ", time() - time_0)
         if self.keypoint_obs:
             camera_obs_processed["object_keypoints"] = get_keypoints_from_pose(
                 object_observation
