@@ -446,7 +446,8 @@ class SimTriFingerCubeEnv(gym.Env):
             # user time to evaluate the policy.
             # Also take time into account that might have already passed
             # while the observation was processed.
-            print("t_now - self.t_obs: ", t_now - self.t_obs)
+            # print("t_now - self.t_obs: ", t_now - self.t_obs)
+            print(t_now - self.t_obs)
             for _ in range(self.obs_action_delay - (t_now - self.t_obs)):
                 self._append_desired_action(robot_action)
 
