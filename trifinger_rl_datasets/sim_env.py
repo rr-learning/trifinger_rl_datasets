@@ -440,10 +440,13 @@ class SimTriFingerCubeEnv(gym.Env):
         truncated = self.step_count >= self.episode_length
 
         if not truncated and preappend_actions:
+            t_now = self.platform.get_current_timeindex()
             # Append action to action queue of robot for as many time
             # steps as the obs_action_delay dictates. This gives the
             # user time to evaluate the policy.
-            for _ in range(self.obs_action_delay):
+            # Also take time into account that might have already passed
+            # while the observation was processed.
+            for _ in range(max(self.obs_action_delay - (t_now - self.t_obs), 0)):
                 self._append_desired_action(robot_action)
 
         return observation, reward, False, truncated, info
