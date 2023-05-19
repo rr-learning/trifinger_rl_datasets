@@ -24,6 +24,9 @@ This section provides short examples of how to load datasets and evaluate a poli
 
 The datasets are accessible via gym environments which are automatically registered when importing the package. They are automatically downloaded when requested and stored in `~/.trifinger_rl_datasets` as Zarr files by default (see the [documentation](https://webdav.tuebingen.mpg.de/trifinger-rl/docs/) for custom paths to the datasets). The code for loading the datasets follows the interface suggested by [D4RL](https://github.com/rail-berkeley/d4rl) and extends it where needed. 
 
+As an alternative to the automatic download, the datasets can also be downloaded
+manually from the [Edmond repository](https://edmond.mpdl.mpg.de/dataset.xhtml?persistentId=doi:10.17617/3.DXZ7TL).
+
 The datasets are named following the pattern `trifinger-cube-task-source-type-v0` where `task` is either `push` or `lift`, `source` is either `sim` or `real` and `type` can be either `mixed`, `weak-n-expert` or `expert`.
 
 By default the observations are loaded as flat arrays. For the simulated datasets the environment can be stepped and visualized. Example usage (also see `demo/load_dataset.py`):
