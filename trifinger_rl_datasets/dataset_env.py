@@ -391,20 +391,19 @@ class TriFingerDatasetEnv(gym.Env):
         else:
             return obs
 
-    def get_obs_indices(self):
+    def get_obs_indices(self) -> Tuple[Dict, Dict]:
         """Get index ranges that correspond to the different observation components.
 
         Also returns a dictionary containing the shapes of these observation
         components.
 
         Returns:
-            A tuple containing:
             - A dictionary with keys corresponding to the observation components and
-            values being tuples of the form (start, end), where start and end are
-            the indices at which the observation component starts and ends. The
-            nested dictionary structure of the observation is preserved.
+              values being tuples of the form (start, end), where start and end are
+              the indices at which the observation component starts and ends. The
+              nested dictionary structure of the observation is preserved.
             - A dictionary of the same structure but with values being the shapes
-            of the observation components."""
+              of the observation components."""
 
         def _construct_dummy_obs(spaces_dict, counter=[0]):
             """Construct dummy observation which has an array repeating
@@ -442,9 +441,10 @@ class TriFingerDatasetEnv(gym.Env):
             zarr_path:  Optional path to a Zarr directory containing the dataset, which will be
                 used instead of the default.
         Returns:
-            The statistics of the dataset as a dictionary with keys:
+            The statistics of the dataset as a dictionary with keys
+
                 - n_timesteps: Number of timesteps in dataset. Corresponds to the
-                    number of observations, actions and rewards.
+                  number of observations, actions and rewards.
                 - obs_size: Size of the observation vector.
                 - action_size: Size of the action vector.
         """
@@ -467,14 +467,15 @@ class TriFingerDatasetEnv(gym.Env):
             zarr_path:  Optional path to a Zarr directory containing the dataset, which will be
                 used instead of the default.
         Returns:
-            The statistics of the image data as a dictionary with keys:
+            The statistics of the image data as a dictionary with keys
+
                 - n_images: Number of images in the dataset.
                 - n_cameras: Number of cameras used to capture the images.
                 - n_channels: Number of channels in the images.
                 - image_shape: Shape of the images in the format (height, width).
                 - reorder_pixels: Whether the pixels in the images have been reordered
-                    to have the pixels corresponding to one color in the Bayer pattern
-                    together in blocks (to improve image compression).
+                  to have the pixels corresponding to one color in the Bayer pattern
+                  together in blocks (to improve image compression).
         """
         if zarr_path is None:
             zarr_path = self._download_dataset()
@@ -624,22 +625,23 @@ class TriFingerDatasetEnv(gym.Env):
                 the number of threads is set to the number of CPUs available to the
                 process.
         Returns:
-            A dictionary with the following items:
+            A dictionary containing the following keys
+
                 - observations: Either an array or a list of dictionaries
-                    containing the observations depending on whether
-                    `flatten_obs` is True or False.
+                  containing the observations depending on whether
+                  `flatten_obs` is True or False.
                 - actions: Array containing the actions.
                 - rewards: Array containing the rewards.
                 - timeouts: Array containing the timeouts (True only at
-                    the end of an episode by default. Always False if
-                    `set_terminals` is True).
+                  the end of an episode by default. Always False if
+                  `set_terminals` is True).
                 - terminals: Array containing the terminals (Always
-                    False by default. If `set_terminals` is True, only
-                    True at the last timestep of an episode).
+                  False by default. If `set_terminals` is True, only
+                  True at the last timestep of an episode).
                 - images (only if present in dataset): Array of the
-                    shape (n_control_timesteps, n_cameras, n_channels,
-                    height, width) containing the image data. The cannels
-                    are ordered as RGB.
+                  shape (n_control_timesteps, n_cameras, n_channels,
+                  height, width) containing the image data. The cannels
+                  are ordered as RGB.
         """
 
         # The offline RL dataset is loaded from a Zarr directory which contains
@@ -833,21 +835,24 @@ class TriFingerDatasetEnv(gym.Env):
 
         Returns:
             A tuple with
+
             - observation (dict or tuple): agent's observation of the current
-                environment.  If `self.flatten_obs` is False then as a dictionary.
-                If `self.flatten_obs` is True then either as a 1D NumPy array
-                (if no images are to be included) or as a tuple (if images are
-                to be included) consisting of
-                * a 1D NumPy array containing all observations except the
+              environment.  If `self.flatten_obs` is False then as a dictionary.
+              If `self.flatten_obs` is True then either as a 1D NumPy array
+              (if no images are to be included) or as a tuple (if images are
+              to be included) consisting of
+
+              * a 1D NumPy array containing all observations except the
                 camera images, and
-                * a NumPy array of shape (n_cameras, n_channels, height, width)
+              * a NumPy array of shape (n_cameras, n_channels, height, width)
                 containing the camera images.
+
             - reward (float): amount of reward returned after previous action.
             - terminated (bool): whether the MDP has reached a terminal state. If true,
-                the user needs to call `reset()`.
+              the user needs to call `reset()`.
             - truncated (bool): Whether the truncation condition outside the scope
-                of the MDP is satisfied. For this environment this corresponds to a
-                timeout. If true, the user needs to call `reset()`.
+              of the MDP is satisfied. For this environment this corresponds to a
+              timeout. If true, the user needs to call `reset()`.
             - info (dict): info dictionary containing the current time index.
         """
         if self.real_robot:

@@ -5,6 +5,7 @@ from gymnasium.envs.registration import register
 from .dataset_env import TriFingerDatasetEnv
 from .evaluation import Evaluation
 from .policy_base import PolicyBase, PolicyConfig
+from .sim_env import SimTriFingerCubeEnv
 
 
 base_url = "https://robots.real-robot-challenge.com/public/trifinger_rl_datasets/"

@@ -376,13 +376,14 @@ class SimTriFingerCubeEnv(gym.Env):
 
         Returns:
             tuple:
+
             - observation (dict): agent's observation of the current environment.
             - reward (float): amount of reward returned after previous action.
             - terminated (bool): whether the MDP has reached a terminal state. If true,
-                the user needs to call `reset()`.
+              the user needs to call `reset()`.
             - truncated (bool): Whether the truncation condition outside the scope
-                of the MDP is satisfied. For this environment this corresponds to a
-                timeout. If true, the user needs to call `reset()`.
+              of the MDP is satisfied. For this environment this corresponds to a
+              timeout. If true, the user needs to call `reset()`.
             - info (dict): info dictionary containing the current time index.
         """
         if self.platform is None:
@@ -662,6 +663,8 @@ class SimTriFingerCubeEnv(gym.Env):
         return robot_action
 
     def render(self, mode: str = "human"):
+        """Does nothing. See :class:`SimTriFingerCubeEnv` for how to enable
+        visualization."""
         pass
 
     def reset_cube(self):
