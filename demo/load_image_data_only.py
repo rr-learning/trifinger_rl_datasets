@@ -56,7 +56,7 @@ if __name__ == "__main__":
     argparser.add_argument(
         "--env",
         type=str,
-        default="trifinger-cube-push-real-expert-image-mini-v0",
+        default="trifinger-cube-push-real-expert-image-v0",
         help="Name of dataset environment to load.",
     )
     argparser.add_argument(
