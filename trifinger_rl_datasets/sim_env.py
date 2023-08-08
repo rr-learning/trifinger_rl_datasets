@@ -402,6 +402,7 @@ class SimTriFingerCubeEnv(gym.Env):
         # to dead-lock)
         if self.t_obs > 0:
             t_now = self.platform.get_current_timeindex()
+            print("When applying new action", t_now)
             t_expected = self.t_obs + self.obs_action_delay
             if t_now > t_expected:
                 self._timing_violation_counter += 1
@@ -433,6 +434,7 @@ class SimTriFingerCubeEnv(gym.Env):
             t = self._append_desired_action(robot_action)
         # time of the new observation
         self.t_obs = t
+        print("Time of the new observation: ", self.t_obs)
 
         observation, info = self._create_observation(self.t_obs, action)
         reward = self.compute_reward(
@@ -442,6 +444,7 @@ class SimTriFingerCubeEnv(gym.Env):
 
         if not truncated and preappend_actions:
             t_now = self.platform.get_current_timeindex()
+            print("Before preappending actions: ", t_now)
             # Append action to action queue of robot for as many time
             # steps as the obs_action_delay dictates. This gives the
             # user time to evaluate the policy.
