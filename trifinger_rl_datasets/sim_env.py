@@ -676,4 +676,5 @@ class SimTriFingerCubeEnv(gym.Env):
 
         for position in self._cube_reset_traj[: self._reset_trajectory_length : 2]:
             robot_action = self.platform.Action(position=position)
-            self._append_desired_action(robot_action)
+            t = self._append_desired_action(robot_action)
+            self.platform.wait_until_timeindex(t)  # type: ignore
