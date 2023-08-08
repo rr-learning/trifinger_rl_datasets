@@ -404,6 +404,7 @@ class SimTriFingerCubeEnv(gym.Env):
             t_now = self.platform.get_current_timeindex()
             print("When applying new action", t_now)
             t_expected = self.t_obs + self.obs_action_delay
+            print("Expected time of new action: ", t_expected)
             if t_now > t_expected:
                 self._timing_violation_counter += 1
                 extreme = t_now > self.t_obs + self._step_size
