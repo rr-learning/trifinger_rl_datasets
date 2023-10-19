@@ -864,7 +864,9 @@ class TriFingerDatasetEnv(gym.Env):
         processed_obs = self._process_obs(obs)
         return processed_obs, rew, terminated, truncated, info
 
-    def reset(self) -> Tuple[Union[Dict, np.ndarray], Dict]:
+    def reset(
+        self, seed: Optional[int] = None, options: Optional[Dict[str, Any]] = None
+    ) -> Tuple[Union[Dict, np.ndarray], Dict]:
         """Reset the environment.
 
         Returns:
@@ -874,6 +876,8 @@ class TriFingerDatasetEnv(gym.Env):
             raise NotImplementedError(
                 "The reset method is not available for real-robot data."
             )
+        if seed is not None:
+            self.sim_env.seed(seed)
         obs, info = self.sim_env.reset()
         # process obs
         processed_obs = self._process_obs(obs)
