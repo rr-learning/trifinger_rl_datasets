@@ -482,6 +482,8 @@ class SimTriFingerCubeEnv(gym.Env):
         self.active_goal = task.sample_goal(difficulty=self.difficulty)
         # visualize the goal (but not if image observations are used)
         if self.visualization and not self.image_obs:
+            if hasattr(self, "goal_marker"):
+                del self.goal_marker
             self.goal_marker = trifinger_simulation.visual_objects.CubeMarker(
                 width=task._CUBE_WIDTH,
                 position=self.active_goal.position,
