@@ -669,10 +669,15 @@ class SimTriFingerCubeEnv(gym.Env):
         visualization."""
         pass
 
+    def _wait_until_timeindex(self, t: int):
+        """Wait until the given time index is reached."""
+        # The simulation is stepped automatically so there is nothing to do here.
+        pass
+
     def reset_cube(self):
         """Replay a recorded trajectory to move cube to center of arena."""
 
         for position in self._cube_reset_traj[: self._reset_trajectory_length : 2]:
             robot_action = self.platform.Action(position=position)
             t = self._append_desired_action(robot_action)
-            self.platform.wait_until_timeindex(t)  # type: ignore
+            self._wait_until_timeindex(t)  # type: ignore
